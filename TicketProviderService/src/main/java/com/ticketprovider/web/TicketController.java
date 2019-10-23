@@ -46,6 +46,7 @@ public class TicketController {
 	  
 	  @PostMapping(value = "/tickets")
 	  public Integer createTicket(@RequestBody TicketView ticketView) {
+		  log.info("createTicket   Tickets");
 		  Integer ticketId = ticketService.createTicket(toTicketViewTransformer.transformToTicket(ticketView));
 		  return ticketId;
 	  }

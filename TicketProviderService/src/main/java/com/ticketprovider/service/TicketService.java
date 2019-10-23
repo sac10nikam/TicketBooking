@@ -48,6 +48,7 @@ public class TicketService {
 	 
 	 public Integer createTicket(Ticket ticket)
 	 {
+		 log.info("createTicket all  Tickets");
 		 TicketDao ticketDao = ticketRepository.save(toTicketTransformer.transformToTicketDao(ticket));
 		
 		 //If Ticket is going to save and Consumer IS BMS then send it only BMS QUEE.

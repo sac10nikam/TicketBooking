@@ -23,6 +23,18 @@ public class BMSConsumer {
 	public void recievedMessage( TicketMsg ticketMsg) {
 		log.info("Recieved Message From RabbitMQ: " + ticketMsg);       
 		ticketMsgService.saveTicketMsg(toTicketMsgTransformer.transfrom(ticketMsg));
-		
 	}
+	
+	
+	
+	//Need to check AknowlgeMent for Manuall
+	/*
+	 * public void recievedMessage(TicketMsg ticketMsg, Channel channel, @Header(AmqpHeaders.DELIVERY_TAG) long tag) throws IOException 
+	 * {
+	 * System.out.println(payload);
+	 *  channel.basicAck(tag, false); 
+	 *  latch.countDown();
+	 * }
+	 */
+	
 }

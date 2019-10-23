@@ -1,16 +1,25 @@
 package com.bms.theater.data;
 
-import java.sql.Time;
-import java.time.LocalDate;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-
+import com.bms.movie.data.MovieDao;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,34 +32,40 @@ import lombok.Setter;
 @Getter
 @AllArgsConstructor
 @Setter
-public class TheaterDao {
+public class TheaterDao implements Serializable {
+	private static final long serialVersionUID = 1L;
+
 
 	@Id
-    @Column(name = "tid")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private final Integer tid;
-    
-    @Column(name = "MovieId")
-    private final Integer movieId;
-
-    @Column(name = "TheaterId")
-    private final Integer theaterId;
+	@Column(name = "theaterId")
+	private final Integer theaterId;
 	
-    @Column(name = "adressid")
-    private final Integer adressid;
-    
-    @Column(name = "theaterName")
-    private final String theaterName;
-    
-    @Column(name = "screen")
-    private final Integer screen;
-    
-    @Column(name = "seats")
-    private final Integer seats;
-    
-    
- // needed for JPA
-	  @SuppressWarnings("unused")
-	  private TheaterDao() { 
-		  this(null, null,null,null,null,null,null); }
+	@Column(name = "screen")
+	private final Integer screen;
+	
+	@Column(name = "movieId") 
+	private final Integer movieId;  
+	
+
+	@Column(name = "adressId")
+	private final Integer adressid;
+
+	@Column(name = "theaterName")
+	private final String theaterName;
+
+
+	@Column(name = "seats")
+	private final Integer seats;
+	
+	@JsonManagedReference
+    @ManyToMany(mappedBy="theaterDao")
+	private List<MovieDao> movieDao;
+
+
+	
+	// needed for JPA
+	@SuppressWarnings("unused")
+	private TheaterDao() {
+		this(null, null, null, null, null, null, null);
+	}
 }
